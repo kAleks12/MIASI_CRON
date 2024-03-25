@@ -27,7 +27,7 @@ run {
         time: 11:00:00
     }
     repeat_every {
-        # possible values: [second, minute, hour, day, month, year]
+        # possible values: [second, minute, hour, day, week, month]
         unit: minute
         value: 30
         tasks: ["example1", "example2"]
