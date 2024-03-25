@@ -1,14 +1,14 @@
-grammar cron_grammar;
+proj.cron.grammar cron_grammar;
 
 // Rule for the entire configuration
 config: (task_definition | run_configuration)+;
 
 // Rule for task definitions
 task_definition: 'task' '{'
-    'name: ' STRING
-    ('files: ' option_list)?
-    ('cmds: ' option_list)?
-    ('output: ' STRING)?
+    'name: ' name=STRING
+    ('files: ' files=option_list)?
+    ('cmds: ' cmds=option_list)?
+    ('output: ' out=STRING)?
     '}';
 
 // Rule for file list
