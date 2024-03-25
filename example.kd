@@ -1,0 +1,35 @@
+# Task definitions
+task {
+    name: "example_task1"
+    files: ["./script.sh", "./scripts2.sh"]
+    output: "./output.txt"
+}
+
+
+task {
+    name: "example2"
+    cmds: ["echo example", "echo another example"]
+    output: "./output2.txt"
+}
+
+# other task definitions ...
+
+
+# Run configuration
+run {
+    repeat_once {
+        tasks: ["example", "example2"]
+        date: 20-03-2024
+        time: 11:00:00
+    }
+    repeat_every {
+        # possible values: [second, minute, hour, day, month, year]
+        unit: minute
+        value: 30
+        tasks: ["example1", "example2"]
+    }
+    repeat_cron {
+        cron: "0 0 * * *"
+        tasks: ["example1", "example2"]
+    }
+}
