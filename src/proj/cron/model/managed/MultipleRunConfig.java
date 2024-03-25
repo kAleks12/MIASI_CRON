@@ -15,7 +15,7 @@ public class MultipleRunConfig implements RunConfig {
     @Override
     public boolean shouldRun() {
         var now = ZonedDateTime.now();
-        ZonedDateTime edgeValue = null;
+        ZonedDateTime edgeValue;
         switch (unit) {
             case SECOND -> edgeValue = now.minusSeconds(this.value);
             case MINUTE -> edgeValue = now.minusMinutes(this.value);

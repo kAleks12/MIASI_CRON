@@ -16,17 +16,15 @@ public class ManagedTask implements RunnableTask {
 
     @Override
     public void run() {
-        if (!running) {
-            return;
-        }
-
-        if (config.shouldRun()) {
-            task.run();
-        }
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        while (running) {
+            if (config.shouldRun()) {
+                task.run();
+            }
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
