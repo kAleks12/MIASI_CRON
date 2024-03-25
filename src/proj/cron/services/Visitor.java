@@ -1,11 +1,11 @@
-package proj.cron.interpreter;
+package proj.cron.services;
 
 import proj.cron.grammar.*;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
-import proj.cron.model.Job;
-import proj.cron.model.JobType;
-import proj.cron.model.Task;
+import proj.cron.model.raw.Job;
+import proj.cron.model.raw.JobType;
+import proj.cron.model.raw.Task;
 
 import java.util.*;
 
@@ -28,10 +28,23 @@ public class Visitor extends cron_grammarBaseVisitor<Object> {
         if (ctx.files != null) {
             execs.addAll((List<String>) visit(ctx.files));
         }
-        return Job.builder()
-                .execs(execs)
-                .type(ctx.cmds != null ? JobType.CMD : JobType.SCRIPT)
-                .build();
+        var builder = Job.builder().execs(execs);
+        if (ctx.cmds !=  null) {
+            return builder.type(JobType.CMD)
+                    .build();
+        }
+        var extensions = execs.stream()
+                .map(e -> e.substring(e.lastIndexOf('.') + 1))
+                .toList();
+
+        if (extensions.stream().allMatch(e -> e.equals("sh"))) {
+            builder.type(JobType.BASH);
+        } else if (extensions.stream().allMatch(e -> e.equals("py"))) {
+            builder.type(JobType.PYTHON);
+        } else {
+            throw new RuntimeException("Unsupported file extension or mixed file types in job definition");
+        }
+        return builder.build();
     }
 
     @Override
