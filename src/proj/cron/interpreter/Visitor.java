@@ -3,11 +3,15 @@ package proj.cron.interpreter;
 import proj.cron.grammar.*;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
+import proj.cron.model.Job;
+import proj.cron.model.JobType;
+import proj.cron.model.Task;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public class Visitor extends cron_grammarBaseVisitor<Object> {
+    private final Map<String, Task> taskMap = new TreeMap<>();
+
     @Override
     public Object visitOption_list(cron_grammarParser.Option_listContext ctx) {
         // Returns a list of string args
@@ -15,17 +19,39 @@ public class Visitor extends cron_grammarBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitTask_definition(cron_grammarParser.Task_definitionContext ctx) {
-        System.out.println("Task name: " + ctx.name.getText());
-        var options = visit(ctx.files);
-
+    public Object visitJob(cron_grammarParser.JobContext ctx) {
+        // Return generic job object, can be either a set of commands or a set of scripts
+        List<String> execs = new ArrayList<>();
         if (ctx.cmds != null) {
-            System.out.println("Task cmds: " + visit(ctx.cmds));
+           execs.addAll((List<String>) visit(ctx.cmds));
         }
         if (ctx.files != null) {
-            System.out.println("Task files: " + visit(ctx.files));
+            execs.addAll((List<String>) visit(ctx.files));
         }
-        System.out.println("Task output: " + ctx.out.getText());
+        return Job.builder()
+                .execs(execs)
+                .type(ctx.cmds != null ? JobType.CMD : JobType.SCRIPT)
+                .build();
+    }
+
+    @Override
+    public Object visitTask_definition(cron_grammarParser.Task_definitionContext ctx) {
+        var jobList = ctx.job().stream().map(obj -> (Job) visit(obj)).toList();
+        if (jobList.isEmpty()) {
+            throw new RuntimeException("Task definition must have at least one job (cmds or files block)");
+        }
+        String taskName = ctx.name.getText().replace("\"", "");
+        if(this.taskMap.containsKey(taskName)) {
+            throw new RuntimeException("Task with name " + taskName + " already exists");
+        }
+
+        String output = ctx.out != null ? ctx.out.getText().replace("\"", "") : "output.txt";
+        var newTask = Task.builder()
+                .name(taskName)
+                .outputFile(output)
+                .jobs(jobList)
+                .build();
+        this.taskMap.put(taskName, newTask);
         return visitChildren(ctx);
     }
 
