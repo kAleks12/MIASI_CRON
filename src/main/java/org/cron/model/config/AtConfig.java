@@ -1,9 +1,11 @@
 package org.cron.model.config;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.time.ZonedDateTime;
 
+@Getter
 @AllArgsConstructor
 public class AtConfig implements RunConfig {
     private ZonedDateTime nextExecution;
