@@ -33,8 +33,9 @@ public class Main {
         // Load the input file
 //        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_run_once.kd");
 //        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_run_every.kd");
-        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_run_cron.kd");
-//        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_combo.kd");
+//        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_run_cron.kd");
+//        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_run_at.kd");
+        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_combo.kd");
 
         // Create a lexer and parser
         var vault = getTaskVault(input);

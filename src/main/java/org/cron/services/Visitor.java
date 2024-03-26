@@ -2,11 +2,13 @@ package org.cron.services;
 
 import lombok.Getter;
 import org.cron.grammar.*;
+import org.cron.model.config.AtConfig;
 import org.cron.model.config.CronRunConfig;
 import org.cron.model.config.MultipleRunConfig;
 import org.cron.model.config.SingleRunConfig;
 import org.cron.model.task.*;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -124,6 +126,24 @@ public class Visitor extends cron_grammarBaseVisitor<Object> {
             var managedTask = ManagedTask.builder()
                     .task(taskObj)
                     .config(new CronRunConfig(cron))
+                    .running(true)
+                    .build();
+            taskVault.addTask(managedTask);
+        });
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitRepeat_at(cron_grammarParser.Repeat_atContext ctx) {
+        var tasks = getAndCheckTasks(visit(ctx.task_list()));
+        var time = ctx.TIME().getText();
+        var date = ctx.DATE().getText();
+        var executionTime = ZonedDateTime.parse(date + "T" + time + ZonedDateTime.now().getOffset());
+        tasks.forEach(task -> {
+            var taskObj = taskMap.get(task);
+            var managedTask = ManagedTask.builder()
+                    .task(taskObj)
+                    .config(new AtConfig(executionTime))
                     .running(true)
                     .build();
             taskVault.addTask(managedTask);

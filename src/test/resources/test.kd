@@ -21,8 +21,11 @@ task {
 run {
     repeat_once {
         tasks: ["example1"]
-        date: 20-03-2024
-        time: 11:00:00
+    }
+    repeat_at {
+            tasks: ["example1"]
+            date: 20-03-2024
+            time: 11:00:00
     }
     repeat_every {
         # possible values: [second, minute, hour, day, week, month]

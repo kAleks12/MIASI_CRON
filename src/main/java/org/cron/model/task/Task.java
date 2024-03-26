@@ -16,14 +16,14 @@ public class Task implements RunnableTask {
 
     @Override
     public void run() {
-        System.out.println("Task " + name + " started...");
+        System.out.println("Task '" + name + "' started...");
         for (var job : jobs) {
             try {
                 job.run(outputFile);
             } catch (IOException  | InterruptedException e) {
-                System.out.println("Error running task " + name + " detail: " + e.getMessage());
+                System.out.println("Error running task '" + name + "' detail: " + e.getMessage());
             }
         }
-        System.out.println("Task " + name + " completed...");
+        System.out.println("Task '" + name + "' completed...");
     }
 }

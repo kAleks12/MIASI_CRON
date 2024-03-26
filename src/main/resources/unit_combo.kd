@@ -1,7 +1,31 @@
 # Task definitions
 task {
     name: "example1"
-    output: "./output.txt"
+    output: "./output1.txt"
+    cmds: ["echo hello from terminal"]
+    files: ["src/main/resources/input/script.sh"]
+    files: ["src/main/resources/input/main.py"]
+}
+
+task {
+    name: "example2"
+    output: "./output2.txt"
+    cmds: ["echo hello from terminal"]
+    files: ["src/main/resources/input/script.sh"]
+    files: ["src/main/resources/input/main.py"]
+}
+
+task {
+    name: "example3"
+    output: "./output3.txt"
+    cmds: ["echo hello from terminal"]
+    files: ["src/main/resources/input/script.sh"]
+    files: ["src/main/resources/input/main.py"]
+}
+
+task {
+    name: "example4"
+    output: "./output4.txt"
     cmds: ["echo hello from terminal"]
     files: ["src/main/resources/input/script.sh"]
     files: ["src/main/resources/input/main.py"]
@@ -13,18 +37,21 @@ task {
 # Run configuration
 run {
     repeat_once {
-            tasks: ["example_task1"]
-            date: 20-03-2024
-            time: 11:00:00
+        tasks: ["example1"]
+    }
+    repeat_at {
+        tasks: ["example2"]
+        date: 2024-03-26
+        time: 22:30:00
     }
     repeat_every {
-            # possible values: [second, minute, hour, day, week, month]
-            unit: minute
-            value: 1
-            tasks: ["example_task1"]
+        # possible values: [second, minute, hour, day, week, month]
+        unit: minute
+        value: 1
+        tasks: ["example3"]
     }
     repeat_cron {
-            cron: "* * * * *"
-            tasks: ["example_task1"]
+        cron: "* * * * *"
+        tasks: ["example4"]
     }
 }

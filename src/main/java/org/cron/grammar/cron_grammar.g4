@@ -17,11 +17,15 @@ option_list: '[' STRING (',' STRING)* ']';
 
 // Rule for run configuration
 run_configuration
-    : 'run' '{' (repeat_once | repeat_every | repeat_cron)+ '}'
+    : 'run' '{' (repeat_once | repeat_at | repeat_every | repeat_cron)+ '}'
     ;
 
 repeat_once
-    : 'repeat_once' '{' 'tasks:' task_list 'date:' DATE 'time:' TIME '}'
+    : 'repeat_once' '{' 'tasks:' task_list '}'
+    ;
+
+repeat_at
+    : 'repeat_at' '{' 'tasks:' task_list 'date:' DATE 'time:' TIME '}'
     ;
 
 repeat_every
