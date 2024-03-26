@@ -15,6 +15,10 @@ public class TaskVault {
         tasks.add(task);
     }
 
+    public Integer getTaskCount() {
+        return tasks.size();
+    }
+
     public void start() {
         tasks.forEach(task -> threads.add(new Thread(task::run)));
         threads.forEach(Thread::start);

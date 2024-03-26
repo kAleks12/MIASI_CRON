@@ -1,18 +1,18 @@
 package proj.cron.model.managed;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Setter;
 import proj.cron.model.raw.RunnableTask;
 import proj.cron.model.raw.Task;
 
 import static java.lang.Thread.sleep;
 
 @Builder
-@Data
+@Setter
 public class ManagedTask implements RunnableTask {
     private Task task;
     private RunConfig config;
-    private boolean running = true;
+    private boolean running;
 
     @Override
     public void run() {

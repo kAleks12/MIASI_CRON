@@ -5,7 +5,7 @@ import java.time.ZonedDateTime;
 public class MultipleRunConfig implements RunConfig {
     private final TimeUnit unit;
     private final Long value;
-    private ZonedDateTime lastExecution = ZonedDateTime.now();
+    private ZonedDateTime lastExecution;
 
     public MultipleRunConfig(TimeUnit unit, Long value) {
         this.unit = unit;
@@ -23,6 +23,10 @@ public class MultipleRunConfig implements RunConfig {
             case DAY -> edgeValue = now.minusDays(this.value);
             case MONTH -> edgeValue = now.minusMonths(this.value);
             default -> throw new IllegalArgumentException("Invalid time unit");
+        }
+        if (lastExecution == null) {
+            lastExecution = now;
+            return true;
         }
 
         if (lastExecution.isBefore(edgeValue)) {

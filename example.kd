@@ -3,7 +3,7 @@ task {
     name: "example_task1"
     output: "./output.txt"
     files: ["./script.sh", "./scripts2.sh"]
-    cmds: ["./script.sh", "./scripts2.sh"]
+    cmds: ["echo beczka", "echo beczka2"]
     files: ["./script.sh", "./scripts2.sh"]
     files: ["./script.sh", "./scripts2.sh"]
     files: ["./script.sh", "./scripts2.sh"]
@@ -22,7 +22,7 @@ task {
 # Run configuration
 run {
     repeat_once {
-        tasks: ["example", "example2"]
+        tasks: ["example_task1", "example2"]
         date: 20-03-2024
         time: 11:00:00
     }
@@ -30,10 +30,10 @@ run {
         # possible values: [second, minute, hour, day, week, month]
         unit: minute
         value: 30
-        tasks: ["example1", "example2"]
+        tasks: ["example_task1", "example2"]
     }
     repeat_cron {
         cron: "0 0 * * *"
-        tasks: ["example1", "example2"]
+        tasks: ["example_task1", "example2"]
     }
 }
