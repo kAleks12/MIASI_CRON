@@ -1,0 +1,18 @@
+# Task definitions
+task {
+    name: "example_task1"
+    output: "./output.txt"
+    cmds: ["echo hello from terminal"]
+    files: ["src/main/resources/input/script.sh"]
+    files: ["src/main/resources/input/main.py"]
+}
+# other task definitions ...
+
+
+# Run configuration
+run {
+    repeat_cron {
+        cron: "* * * * *"
+        tasks: ["example_task1"]
+    }
+}

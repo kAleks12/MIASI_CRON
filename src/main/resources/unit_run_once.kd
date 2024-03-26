@@ -3,8 +3,8 @@ task {
     name: "example_task1"
     output: "./output.txt"
     cmds: ["echo hello from terminal"]
-    files: ["script.sh"]
-    files: ["./main.py"]
+    files: ["src/main/resources/input/script.sh"]
+    files: ["src/main/resources/input/main.py"]
 }
 # other task definitions ...
 
@@ -16,4 +16,4 @@ run {
         date: 20-03-2024
         time: 11:00:00
     }
-}
+}       

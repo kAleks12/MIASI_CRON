@@ -1,13 +1,14 @@
-package proj.cron;
+package org.cron;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import proj.cron.grammar.cron_grammarLexer;
-import proj.cron.grammar.cron_grammarParser;
-import proj.cron.services.TaskVault;
-import proj.cron.services.Visitor;
+
+import org.cron.grammar.cron_grammarLexer;
+import org.cron.grammar.cron_grammarParser;
+import org.cron.services.TaskVault;
+import org.cron.services.Visitor;
 
 import java.util.Scanner;
 
@@ -30,7 +31,10 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         // Load the input file
-        CharStream input = CharStreams.fromFileName("./examples/unit_run_once.kd");
+//        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_run_once.kd");
+//        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_run_every.kd");
+        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_run_cron.kd");
+//        CharStream input = CharStreams.fromFileName("./src/main/resources/unit_combo.kd");
 
         // Create a lexer and parser
         var vault = getTaskVault(input);

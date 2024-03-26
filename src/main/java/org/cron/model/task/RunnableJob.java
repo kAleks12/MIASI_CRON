@@ -1,4 +1,4 @@
-package proj.cron.model.task;
+package org.cron.model.task;
 
 import java.io.IOException;
 

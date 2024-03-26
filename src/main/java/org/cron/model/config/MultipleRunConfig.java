@@ -1,11 +1,15 @@
-package proj.cron.model.config;
+package org.cron.model.config;
 
-import proj.cron.model.task.TimeUnit;
+
+import lombok.Getter;
+import org.cron.model.task.TimeUnit;
 
 import java.time.ZonedDateTime;
 
 public class MultipleRunConfig implements RunConfig {
+    @Getter
     private final TimeUnit unit;
+    @Getter
     private final Long value;
     private ZonedDateTime lastExecution;
 

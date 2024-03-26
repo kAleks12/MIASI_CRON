@@ -1,14 +1,14 @@
-package proj.cron.services;
+package org.cron.services;
 
-import lombok.Setter;
-import proj.cron.model.task.ManagedTask;
+import lombok.Getter;
+import org.cron.model.task.ManagedTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
 public class TaskVault {
-    private List<ManagedTask> tasks = new ArrayList<>();
+    @Getter
+    private final List<ManagedTask> tasks = new ArrayList<>();
     private final List<Thread> threads = new ArrayList<>();
 
     public void addTask(ManagedTask task) {

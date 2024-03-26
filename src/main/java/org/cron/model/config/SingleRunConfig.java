@@ -1,4 +1,4 @@
-package proj.cron.model.config;
+package org.cron.model.config;
 
 public class SingleRunConfig implements RunConfig {
     private boolean shouldRun = true;

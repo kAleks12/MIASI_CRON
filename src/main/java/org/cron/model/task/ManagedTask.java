@@ -1,13 +1,15 @@
-package proj.cron.model.task;
+package org.cron.model.task;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Setter;
-import proj.cron.model.config.RunConfig;
+import org.cron.model.config.RunConfig;
 
 import static java.lang.Thread.sleep;
 
 @Builder
 @Setter
+@Getter
 public class ManagedTask implements RunnableTask {
     private Task task;
     private RunConfig config;

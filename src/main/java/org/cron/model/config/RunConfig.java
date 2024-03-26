@@ -1,4 +1,4 @@
-package proj.cron.model.config;
+package org.cron.model.config;
 
 public interface RunConfig {
     boolean shouldRun();
