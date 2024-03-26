@@ -1,9 +1,8 @@
-package proj.cron.model.managed;
+package proj.cron.model.task;
 
 import lombok.Builder;
 import lombok.Setter;
-import proj.cron.model.raw.RunnableTask;
-import proj.cron.model.raw.Task;
+import proj.cron.model.config.RunConfig;
 
 import static java.lang.Thread.sleep;
 

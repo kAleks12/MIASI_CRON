@@ -1,4 +1,6 @@
-package proj.cron.model.managed;
+package proj.cron.model.config;
+
+import proj.cron.model.task.TimeUnit;
 
 import java.time.ZonedDateTime;
 

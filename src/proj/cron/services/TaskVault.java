@@ -1,7 +1,7 @@
 package proj.cron.services;
 
 import lombok.Setter;
-import proj.cron.model.managed.ManagedTask;
+import proj.cron.model.task.ManagedTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +22,15 @@ public class TaskVault {
     public void start() {
         tasks.forEach(task -> threads.add(new Thread(task::run)));
         threads.forEach(Thread::start);
+        System.out.println("Initialized vault");
     }
 
     public void stop() throws InterruptedException {
         tasks.forEach(task -> task.setRunning(false));
+        System.out.println("Stopping vault");
         for (Thread thread : threads) {
             thread.join();
         }
+        System.out.println("Vault stopped");
     }
 }

@@ -1,4 +1,4 @@
-package proj.cron.model.managed;
+package proj.cron.model.config;
 
 import com.cronutils.model.Cron;
 import com.cronutils.model.CronType;

@@ -1,4 +1,4 @@
-package proj.cron.model.raw;
+package proj.cron.model.task;
 
 public interface RunnableTask {
     void run();

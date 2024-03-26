@@ -1,4 +1,4 @@
-package proj.cron.model.raw;
+package proj.cron.model.task;
 
 import lombok.Builder;
 import lombok.Data;
@@ -17,18 +17,9 @@ public class Job implements RunnableJob {
     @Override
     public void run(String outputFileName) throws IOException, InterruptedException {
         switch (type) {
-            case CMD -> {
-                runCmd(outputFileName);
-                System.out.println("Command job completed");
-            }
-            case BASH -> {
-                runBash(outputFileName);
-                System.out.println("Bash job completed");
-            }
-            case PYTHON -> {
-                runPython(outputFileName);
-                System.out.println("Python job completed");
-            }
+            case CMD -> runCmd(outputFileName);
+            case BASH -> runBash(outputFileName);
+            case PYTHON -> runPython(outputFileName);
         }
 
     }
@@ -38,13 +29,15 @@ public class Job implements RunnableJob {
         for (String exec : execs) {
             // Execute the command or script
             ProcessBuilder builder = new ProcessBuilder()
-                    .command("bash", exec)
+                    .command("powershell.exe", "-Command", exec) // Specify PowerShell as the command
                     .redirectErrorStream(true)
                     .redirectOutput(ProcessBuilder.Redirect.appendTo(new File(outputFileName)));
             Process process = builder.start();
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 System.out.println("Error, command '" + exec + "' exited with code: " + exitCode);
+            } else {
+                System.out.println("Command '" + exec + "' executed successfully");
             }
         }
     }
@@ -55,13 +48,15 @@ public class Job implements RunnableJob {
         for (String exec : execs) {
             // Execute the command or script
             ProcessBuilder builder = new ProcessBuilder()
-                    .command(exec)
+                    .command("powershell.exe", "-Command", "bash " + exec)
                     .redirectErrorStream(true)
                     .redirectOutput(ProcessBuilder.Redirect.appendTo(new File(outputFileName)));
             Process process = builder.start();
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 System.out.println("Error, script '" + exec + "' exited with code: " + exitCode);
+            } else {
+                System.out.println("Script '" + exec + "' executed successfully");
             }
         }
     }
@@ -78,6 +73,8 @@ public class Job implements RunnableJob {
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 System.out.println("Error, python script '" + exec + "' exited with code: " + exitCode);
+            } else {
+                System.out.println("Python script '" + exec + "' executed successfully");
             }
         }
     }

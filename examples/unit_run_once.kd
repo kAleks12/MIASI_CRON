@@ -1,0 +1,19 @@
+# Task definitions
+task {
+    name: "example_task1"
+    output: "./output.txt"
+    cmds: ["echo hello from terminal"]
+    files: ["script.sh"]
+    files: ["./main.py"]
+}
+# other task definitions ...
+
+
+# Run configuration
+run {
+    repeat_once {
+        tasks: ["example_task1"]
+        date: 20-03-2024
+        time: 11:00:00
+    }
+}

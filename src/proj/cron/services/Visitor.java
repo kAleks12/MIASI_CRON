@@ -1,19 +1,20 @@
 package proj.cron.services;
 
+import lombok.Getter;
 import proj.cron.grammar.*;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
-import proj.cron.model.managed.*;
-import proj.cron.model.raw.Job;
-import proj.cron.model.raw.JobType;
-import proj.cron.model.raw.Task;
+import proj.cron.model.config.CronRunConfig;
+import proj.cron.model.config.MultipleRunConfig;
+import proj.cron.model.config.SingleRunConfig;
+import proj.cron.model.task.*;
 
 import java.util.*;
 
 public class Visitor extends cron_grammarBaseVisitor<Object> {
-    private final Map<String, Task> taskMap = new TreeMap<>();
+    @Getter
     private final TaskVault taskVault = new TaskVault();
+    private final Map<String, Task> taskMap = new TreeMap<>();
     private final Integer maxTasks = 20;
+
 
     @Override
     public Object visitOption_list(cron_grammarParser.Option_listContext ctx) {
@@ -132,7 +133,6 @@ public class Visitor extends cron_grammarBaseVisitor<Object> {
         if(this.taskVault.getTaskCount() > this.maxTasks) {
             throw new RuntimeException("Cannot define more than " + this.maxTasks + " tasks in a single configuration file");
         }
-        taskVault.start();
         return result;
     }
 
@@ -152,23 +152,5 @@ public class Visitor extends cron_grammarBaseVisitor<Object> {
                 .map(e -> e.replace("\"", ""))
                 .map(String::strip)
                 .toList();
-    }
-
-
-    public static void main(String[] args) throws Exception {
-        // Load the input file
-        CharStream input = CharStreams.fromFileName("example.kd");
-
-        // Create a lexer and parser
-        cron_grammarLexer lexer = new cron_grammarLexer(input);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        cron_grammarParser parser = new cron_grammarParser(tokens);
-
-        // Parse the input and get the parse tree
-        ParseTree tree = parser.config();
-
-        // Create an instance of the custom visitor and visit the parse tree
-        Visitor visitor = new Visitor();
-        visitor.visit(tree);
     }
 }

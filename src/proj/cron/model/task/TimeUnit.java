@@ -1,4 +1,4 @@
-package proj.cron.model.managed;
+package proj.cron.model.task;
 
 public enum TimeUnit {
     SECOND,
