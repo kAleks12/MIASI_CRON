@@ -10,4 +10,9 @@ public class SingleRunConfig implements RunConfig {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "SingleRunConfig()";
+    }
 }

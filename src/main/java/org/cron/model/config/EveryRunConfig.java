@@ -6,14 +6,14 @@ import org.cron.model.task.TimeUnit;
 
 import java.time.ZonedDateTime;
 
-public class MultipleRunConfig implements RunConfig {
+public class EveryRunConfig implements RunConfig {
     @Getter
     private final TimeUnit unit;
     @Getter
     private final Long value;
     private ZonedDateTime lastExecution;
 
-    public MultipleRunConfig(TimeUnit unit, Long value) {
+    public EveryRunConfig(TimeUnit unit, Long value) {
         this.unit = unit;
         this.value = value;
     }
@@ -41,5 +41,10 @@ public class MultipleRunConfig implements RunConfig {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "EveryRunConfig( unit = '" + unit + "', value = '" + value + "' )";
     }
 }

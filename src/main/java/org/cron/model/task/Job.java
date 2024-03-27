@@ -2,6 +2,8 @@ package org.cron.model.task;
 
 import lombok.Builder;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.util.List;
 @Data
 @Builder
 public class Job implements RunnableJob {
+    private static final Logger logger = LogManager.getLogger(Job.class);
     private List<String> execs;
     private JobType type;
 
@@ -35,9 +38,7 @@ public class Job implements RunnableJob {
             Process process = builder.start();
             int exitCode = process.waitFor();
             if (exitCode != 0) {
-                System.out.println("Error, command '" + exec + "' exited with code: " + exitCode);
-            } else {
-                System.out.println("Command '" + exec + "' executed successfully");
+                logger.error("Command '" + exec + "' exited with code: " + exitCode);
             }
         }
     }
@@ -54,9 +55,7 @@ public class Job implements RunnableJob {
             Process process = builder.start();
             int exitCode = process.waitFor();
             if (exitCode != 0) {
-                System.out.println("Error, script '" + exec + "' exited with code: " + exitCode);
-            } else {
-                System.out.println("Script '" + exec + "' executed successfully");
+                logger.error("Script '" + exec + "' exited with code: " + exitCode);
             }
         }
     }
@@ -72,9 +71,7 @@ public class Job implements RunnableJob {
             Process process = builder.start();
             int exitCode = process.waitFor();
             if (exitCode != 0) {
-                System.out.println("Error, python script '" + exec + "' exited with code: " + exitCode);
-            } else {
-                System.out.println("Python script '" + exec + "' executed successfully");
+                logger.error("Python script '" + exec + "' exited with code: " + exitCode);
             }
         }
     }

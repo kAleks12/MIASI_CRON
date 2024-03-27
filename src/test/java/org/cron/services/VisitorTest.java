@@ -6,9 +6,9 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cron.grammar.cron_grammarLexer;
 import org.cron.grammar.cron_grammarParser;
-import org.cron.model.config.AtConfig;
+import org.cron.model.config.AtRunConfig;
 import org.cron.model.config.CronRunConfig;
-import org.cron.model.config.MultipleRunConfig;
+import org.cron.model.config.EveryRunConfig;
 import org.cron.model.config.SingleRunConfig;
 import org.cron.model.task.JobType;
 import org.cron.model.task.ManagedTask;
@@ -75,14 +75,14 @@ public class VisitorTest {
         var jobs = task.getJobs();
 
         //Check correct config and task base attributes
-        assertEquals(AtConfig.class, config.getClass());
+        assertEquals(AtRunConfig.class, config.getClass());
         assertEquals("example1", task.getName());
         assertEquals("./output.txt", task.getOutputFile());
         assertEquals(3, jobs.size());
 
         //Check correct config attributes
         var expectedExecution = ZonedDateTime.parse("2024-03-20T11:00:00" + ZonedDateTime.now().getOffset());
-        assertEquals(expectedExecution, ((AtConfig) config).getNextExecution());
+        assertEquals(expectedExecution, ((AtRunConfig) config).getNextExecution());
 
         //Check correct job attributes
         assertEquals(JobType.CMD, jobs.get(0).getType());
@@ -107,14 +107,14 @@ public class VisitorTest {
         var jobs = task.getJobs();
 
         //Check correct config and task base attributes
-        assertEquals(MultipleRunConfig.class, config.getClass());
+        assertEquals(EveryRunConfig.class, config.getClass());
         assertEquals("example1", task.getName());
         assertEquals("./output.txt", task.getOutputFile());
         assertEquals(3, jobs.size());
 
         //Check correct config attributes
-        assertEquals(30, ((MultipleRunConfig) config).getValue());
-        assertEquals(TimeUnit.MINUTE, ((MultipleRunConfig) config).getUnit());
+        assertEquals(30, ((EveryRunConfig) config).getValue());
+        assertEquals(TimeUnit.MINUTE, ((EveryRunConfig) config).getUnit());
 
         //Check correct job attributes
         assertEquals(JobType.CMD, jobs.get(0).getType());

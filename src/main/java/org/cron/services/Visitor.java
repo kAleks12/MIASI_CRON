@@ -2,9 +2,9 @@ package org.cron.services;
 
 import lombok.Getter;
 import org.cron.grammar.*;
-import org.cron.model.config.AtConfig;
+import org.cron.model.config.AtRunConfig;
 import org.cron.model.config.CronRunConfig;
-import org.cron.model.config.MultipleRunConfig;
+import org.cron.model.config.EveryRunConfig;
 import org.cron.model.config.SingleRunConfig;
 import org.cron.model.task.*;
 
@@ -106,7 +106,7 @@ public class Visitor extends cron_grammarBaseVisitor<Object> {
         var value = Long.parseLong(ctx.INT().getText());
         tasks.forEach(task -> {
             var taskObj = taskMap.get(task);
-            var config = new MultipleRunConfig(unit, value);
+            var config = new EveryRunConfig(unit, value);
             var managedTask = ManagedTask.builder()
                     .task(taskObj)
                     .config(config)
@@ -143,7 +143,7 @@ public class Visitor extends cron_grammarBaseVisitor<Object> {
             var taskObj = taskMap.get(task);
             var managedTask = ManagedTask.builder()
                     .task(taskObj)
-                    .config(new AtConfig(executionTime))
+                    .config(new AtRunConfig(executionTime))
                     .running(true)
                     .build();
             taskVault.addTask(managedTask);
