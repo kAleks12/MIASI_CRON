@@ -1,7 +1,7 @@
 # Task definitions
 task {
     name: "example1"
-    output: "./output1.txt"
+    output: "./task1_out.txt"
     cmds: ["echo hello from terminal"]
     files: ["src/main/resources/input/script.sh"]
     files: ["src/main/resources/input/main.py"]
@@ -9,7 +9,7 @@ task {
 
 task {
     name: "example2"
-    output: "./output2.txt"
+    output: "./task2_out.txt"
     cmds: ["echo hello from terminal"]
     files: ["src/main/resources/input/script.sh"]
     files: ["src/main/resources/input/main.py"]
@@ -17,17 +17,17 @@ task {
 
 task {
     name: "example3"
-    output: "./output3.txt"
+    output: "./task3_out.txt"
+    files: ["src/main/resources/input/main.py"]
     cmds: ["echo hello from terminal"]
     files: ["src/main/resources/input/script.sh"]
-    files: ["src/main/resources/input/main.py"]
 }
 
 task {
     name: "example4"
-    output: "./output4.txt"
-    cmds: ["echo hello from terminal"]
+    output: "./task4_out.txt"
     files: ["src/main/resources/input/script.sh"]
+    cmds: ["echo hello from terminal"]
     files: ["src/main/resources/input/main.py"]
 }
 
