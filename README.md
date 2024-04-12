@@ -1,15 +1,20 @@
 ### Table of contents
 - [Description](#description)
+- [Supported jobs](#supported-jobs)
 - [Usage](#usage)
 - [Installation](#installation)
-
-
-# General info
 
 ## Description
 MIASI_CRON is a task manager implemented with ANTLR4 and pure Java 17. You can organize different jobs (cmds and files blocks) into tasks which can be run 
 with different time configs (repeat_once, repeat_at, repeat_every and repeat cron).
 
+## Supported jobs
+Currently only windows is suported (support for linux is planned for future development).
+Suported job types:
+-  powershell comands (cmds block)
+-  bash scripts (files block)
+-  python scripts (files block)
+-  support for other job types is planned for future releases
 
 ## Usage
 Example config file
