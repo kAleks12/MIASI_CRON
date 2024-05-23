@@ -12,7 +12,7 @@ task {
 # Run configuration
 run {
     repeat_cron {
-        cron: "* * * * *"
         tasks: ["example_task1"]
+        cron: "* * * * *"
     }
 }

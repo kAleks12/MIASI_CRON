@@ -45,13 +45,13 @@ run {
         time: 22:30:00
     }
     repeat_every {
+        tasks: ["example3"]
         # possible values: [second, minute, hour, day, week, month]
         unit: minute
         value: 1
-        tasks: ["example3"]
     }
     repeat_cron {
-        cron: "* * * * *"
         tasks: ["example4"]
+        cron: "* * * * *"
     }
 }

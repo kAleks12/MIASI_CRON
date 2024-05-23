@@ -12,9 +12,9 @@ task {
 # Run configuration
 run {
     repeat_every {
+        tasks: ["example_task1"]
         # possible values: [second, minute, hour, day, week, month]
         unit: minute
         value: 1
-        tasks: ["example_task1"]
     }
 }

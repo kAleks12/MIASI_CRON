@@ -29,11 +29,11 @@ repeat_at
     ;
 
 repeat_every
-    : 'repeat_every' '{' 'unit:' TIME_UNIT 'value:' INT 'tasks:' task_list '}'
+    : 'repeat_every' '{' 'tasks:' task_list 'unit:' TIME_UNIT 'value:' INT '}'
     ;
 
 repeat_cron
-    : 'repeat_cron' '{' 'cron:' STRING 'tasks:' task_list '}'
+    : 'repeat_cron' '{' 'tasks:' task_list  'cron:' STRING '}'
     ;
 
 // Rule for task list
